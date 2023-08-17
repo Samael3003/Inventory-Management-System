@@ -17,53 +17,11 @@ We set up the Raspberry Pi with the Raspbian operating system, an open-source OS
 ### c. Sensor Measurement and Billing 📏💰
 Using Python code, we measure the distance from the ultrasonic sensors and calculate the bill based on the reduced distance when an item is removed from the rack. The bill is stored in a .txt file in the Raspberry Pi's file system. We utilize the smtplib library to send the bill to the customer via email, ensuring prompt and accurate updates. 📧💳📝
 
-```py
-import RPi.GPIO as GPIO
-import smtplib
+### The Functional Representation :
+![image](https://github.com/Auriel3003/samael/assets/103866475/bafc347b-d338-4bc5-b52a-4803a9fc6258)
 
-# Initialize GPIO pins for ultrasonic sensors
-# Configure SMTP server details for email notification
 
-def measure_distance(sensor_pin):
-    # Function to measure distance using ultrasonic sensor
-    # Trigger the sensor, calculate distance based on the pulse duration
-    return distance
 
-def calculate_bill(distance):
-    # Function to calculate the bill based on the reduced distance
-    # Implement the necessary logic for bill calculation
-    return bill_amount
-
-def store_bill(bill):
-    # Function to store the bill in a .txt file on Raspberry Pi
-    # Open the file in append mode and write the bill amount
-    pass
-
-def send_email(bill):
-    # Function to send the bill to the customer via email
-    # Create the email message with the bill details
-    # Connect to the SMTP server and send the email
-    pass
-
-try:
-    # Set up GPIO pins and sensor configurations
-
-    while True:
-        for rack in racks:
-            # Measure the distance using ultrasonic sensor for each rack
-            distance = measure_distance(rack.sensor_pin)
-
-            if distance < threshold:
-                # Object removed from the rack
-                bill = calculate_bill(distance)
-                store_bill(bill)
-                send_email(bill)
-                # Wait for some time before checking the next rack
-
-finally:
-    # Clean up GPIO pins and resources
-
-```
 
 ## 2. Inventory Management System with NodeMCU ESP8266 📲🌐📉
 
@@ -78,66 +36,9 @@ We install the necessary libraries such as ESP8266WiFi and ThingSpeak in the Ard
 ### c. ThingSpeak Integration and Alert System 📊📮🚨
 By leveraging the ThingSpeak cloud platform and its write API, we update inventory data every minute. This information is then relayed to the IFTTT API, which triggers an email notification to the inventory manager when certain goods reach minimal supply levels. This real-time alert system enables proactive inventory management and timely replenishment. 🌩️📩📉
 
-```ts
--- Import required libraries
-require("wifi")
-http = require("http")
+### The Functional Representation :
+![image](https://github.com/Auriel3003/samael/assets/103866475/8191a17b-188e-4736-a574-2823c97bd48f)
 
--- Configure Wi-Fi network
-wifi.setmode(wifi.STATION)
-wifi.sta.config("SSID", "password")  -- Replace SSID and password with your network credentials
-
--- Configure ThingSpeak API details
-api_key = "YOUR_THINGSPEAK_API_KEY"
-base_url = "http://api.thingspeak.com/update?api_key=" .. api_key
-
--- Configure IFTTT API details
-ifttt_webhook_url = "YOUR_IFTTT_WEBHOOK_URL"
-
--- Configure sensor pins
-trigger_pin1 = 1  -- GPIO1
-echo_pin1 = 2     -- GPIO2
-trigger_pin2 = 3  -- GPIO3
-echo_pin2 = 4     -- GPIO4
-
--- Configure inventory thresholds
-inventory_threshold1 = 10  -- Threshold for rack 1
-inventory_threshold2 = 15  -- Threshold for rack 2
-
--- Function to send HTTP POST request to IFTTT API
-function sendEmailAlert()
-    -- Implement HTTP POST request to IFTTT API with email alert payload
-end
-
--- Function to measure distance using ultrasonic sensor
-function measureDistance(trigger_pin, echo_pin)
-    -- Implement logic to measure distance using ultrasonic sensor
-    -- Return the measured distance
-end
-
--- Main loop
-while true do
-    -- Measure distance from ultrasonic sensors
-    distance1 = measureDistance(trigger_pin1, echo_pin1)
-    distance2 = measureDistance(trigger_pin2, echo_pin2)
-    
-    -- Update ThingSpeak channel with inventory information
-    -- Send HTTP GET request to ThingSpeak API with updated inventory data
-    
-    -- Check inventory levels and send email alerts if below thresholds
-    if distance1 < inventory_threshold1 then
-        sendEmailAlert()
-    end
-    
-    if distance2 < inventory_threshold2 then
-        sendEmailAlert()
-    end
-    
-    -- Delay for 1 minute
-    delay(60000)
-end
-
-```
 
 ## 3. Inventory Monitoring System with Arduino UNO ⚠️💡🌡️
 
@@ -152,64 +53,10 @@ We utilize the Arduino IDE and install relevant libraries to facilitate LCD disp
 ### c. Safety Measures and Display 📊🌡️🔴
 When abnormal readings are detected, such as high temperatures or smoke presence, the LCD display shows a "Danger" message, the Arduino triggers a fan, a buzzer sounds, and red LEDs light up. These safety measures help prevent inventory damage and ensure the well-being of personnel. ⚠️🌡️🔴🔒
 
-```ts
-#include <dht11.h>  // Include DHT11 sensor library
-#define DHT11_PIN 2 // Define the pin for DHT11 sensor
-dht11 DHT11;       // Create an instance of the DHT11 sensor
+### The Functional Representation :
+![image](https://github.com/Auriel3003/samael/assets/103866475/3acc22cb-1dd5-4f94-a741-34fa69e59658)
 
-// Pin definitions for fan, buzzer, and LEDs
-#define FAN_PIN 3
-#define BUZZER_PIN 4
-#define RED_LED_PIN 5
 
-void setup() {
-  // Initialize the LCD display, fan, buzzer, and LEDs
-  // Set the appropriate pins as input or output
-  // Set up any necessary communication protocols (I2C, etc.)
-}
-
-void loop() {
-  // Read temperature and humidity from the DHT11 sensor
-  int result = DHT11.read(DHT11_PIN);
-  if (result == DHTLIB_OK) {
-    float temperature = DHT11.temperature;
-    float humidity = DHT11.humidity;
-
-    // Display temperature and humidity readings on the LCD
-    // Update the display in real-time
-    // Use appropriate LCD library functions
-
-    // Check for abnormal readings
-    if (temperature > MAX_TEMPERATURE || humidity > MAX_HUMIDITY) {
-      // Abnormal reading detected
-      // Trigger safety measures
-      lcd.print("Danger");
-
-      // Turn on the fan
-      digitalWrite(FAN_PIN, HIGH);
-
-      // Sound the buzzer
-      digitalWrite(BUZZER_PIN, HIGH);
-
-      // Turn on the red LEDs
-      digitalWrite(RED_LED_PIN, HIGH);
-    } else {
-      // Normal readings
-      // Turn off the fan, buzzer, and LEDs
-      digitalWrite(FAN_PIN, LOW);
-      digitalWrite(BUZZER_PIN, LOW);
-      digitalWrite(RED_LED_PIN, LOW);
-    }
-  } else {
-    // Error reading from the DHT11 sensor
-    // Handle the error condition
-  }
-
-  // Delay for a certain period of time before the next reading
-  delay(1000);
-}
-
-```
 
 
 ## Advantages and Applications 🌟📈💼
@@ -227,17 +74,3 @@ Our Inventory Management and Monitoring System offers numerous benefits and appl
 ## Conclusion:
 Our Inventory Management and Monitoring System, driven by open-source technologies, empowers businesses to effectively monitor inventories, automate billing processes, implement proactive alerts, and maintain optimal storage conditions. With its user-friendly approach and customizable features, this system offers an innovative solution for businesses of all sizes. Embrace the power of open-source and revolutionize your inventory management practices today! 🚀📦🌐
 
-### THE TEAM :
-![image](https://github.com/Auriel3003/samael/assets/103866475/992298ba-a666-4959-a003-9a4d155c0474)
-![image](https://github.com/Auriel3003/samael/assets/103866475/76f9f425-5ea2-420e-93c1-f7182097b472)
-
-### The Functional Representation :
-![image](https://github.com/Auriel3003/samael/assets/103866475/bafc347b-d338-4bc5-b52a-4803a9fc6258)
-![image](https://github.com/Auriel3003/samael/assets/103866475/8191a17b-188e-4736-a574-2823c97bd48f)
-![image](https://github.com/Auriel3003/samael/assets/103866475/3acc22cb-1dd5-4f94-a741-34fa69e59658)
-
-### Partner Project with my Collegue:
-![image](https://github.com/Auriel3003/samael/assets/103866475/2a18279f-d8d0-4654-bd04-e84febe52c24)
-
-![image](https://github.com/Auriel3003/samael/assets/103866475/616e586f-1629-49f3-ae73-c8bbcdb30021)
-![image](https://github.com/Auriel3003/samael/assets/103866475/f9ccdd63-d1d2-4c4f-889b-922ce6583b28)
